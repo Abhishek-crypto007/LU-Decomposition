@@ -20,52 +20,33 @@ To write a program to find the LU Decomposition of a matrix.
 Developed by: ABHISHEK S
 RegisterNumber: 212225100001
 '''
-import ast
 import numpy as np
-def lu(A):
-    A=np.array(A, dtype=float)
-    n=len(A)
-    L=np.eye(n)
-    U=A.copy()
-    P=np.eye(n)
-     
-    for  i in range(n):
-        p = i + np.argmax(abs(U[i:, i]))
-        U[[i,p]] = U[[p,i]]
-        P[[i,p]] = P[[p,i]]
-        L[[i,p], :i] = L[[p,i], :i]
-        
-        for j in range(i+1,n):
-            L[j,i] = U[j,i] / U[i,i]
-            U[j] -= L[j,i]*U[i]
-    
-    return P,L,U        
-# A= [list(map(float, input().split())) for _ in range(3)]
-A= ast.literal_eval(input())
-_,L,U= lu(A) 
+from scipy.linalg import lu
+A=np.array(eval(input()))
+P,L,U=lu(A)
 print(L)
 print(U)
 ```
 (ii) To find the LU Decomposition of a matrix
 ```
-'''Program to find L and U matrix using LU decomposition.
+'''Program to solve a matrix using LU decomposition.
 Developed by: ABHISHEK S
 RegisterNumber: 212225100001
 '''
+# To print X matrix (solution to the equations)
 import numpy as np
-from scipy.linalg import lu,solve
-A=np.array([[3,2,7],[2,3,1],[3,4,1]], dtype=float)
-b=np.array([4,5,7], dtype=float)
-P,L,U=lu(A)
-y=np.linalg.solve(L,np.dot(P,b))
-x=np.linalg.solve(U,y)
+from scipy.linalg import lu_factor,lu_solve
+A=np.array(eval(input()))
+B=np.array(eval(input()))
+lu,pivot= lu_factor(A)
+x=lu_solve((lu,pivot),B)
 print(x)
 ```
 
 
 ## Output:
-<img width="1366" height="768" alt="Screenshot (161)" src="https://github.com/user-attachments/assets/7c666005-dedd-480b-96ba-3484e2afb448" />
-<img width="1366" height="768" alt="Screenshot (162)" src="https://github.com/user-attachments/assets/1b73871c-13bc-4e48-9c20-d2660cbdc74c" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/bf63d6df-703c-4f64-9f55-2c35a242f5e5" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/4821db99-1edf-46d9-bce1-24f5b6595dee" />
 
 
 ## Result:
